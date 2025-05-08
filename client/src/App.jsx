@@ -3,11 +3,11 @@ import './App.css';
 
 function App() {
   const [features, setFeatures] = useState({
-    feature1: '',
-    feature2: '',
-    feature3: '',
-    feature4: '',
-    feature5: '' // Add the missing feature
+    ecg: '',
+    bloodPressure: '',
+    temperature: '',
+    respiratoryRate: '',
+    eeg: '' // Updated feature names
   });
   const [prediction, setPrediction] = useState(null);
   const [category, setCategory] = useState(''); // Add a state for the category
@@ -28,11 +28,11 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          feature1: parseFloat(features.feature1),
-          feature2: parseFloat(features.feature2),
-          feature3: parseFloat(features.feature3),
-          feature4: parseFloat(features.feature4),
-          feature5: parseFloat(features.feature5), // Include feature5
+          feature1: parseFloat(features.ecg),
+          feature2: parseFloat(features.bloodPressure),
+          feature3: parseFloat(features.temperature),
+          feature4: parseFloat(features.respiratoryRate),
+          feature5: parseFloat(features.eeg), // Updated feature names
         }),
       });
 
@@ -61,13 +61,19 @@ function App() {
     <div style={{ padding: '2rem', maxWidth: '500px', margin: 'auto' }}>
       <h2>Real-Time Health Monitor</h2>
       <form onSubmit={handleSubmit}>
-        {['feature1', 'feature2', 'feature3', 'feature4', 'feature5'].map((feature) => (
-          <div key={feature} style={{ marginBottom: '1rem' }}>
-            <label>{feature}: </label>
+        {[
+          { name: 'ecg', label: 'ECG' },
+          { name: 'bloodPressure', label: 'Blood Pressure' },
+          { name: 'temperature', label: 'Temperature' },
+          { name: 'respiratoryRate', label: 'Respiratory Rate' },
+          { name: 'eeg', label: 'EEG' }
+        ].map((feature) => (
+          <div key={feature.name} style={{ marginBottom: '1rem' }}>
+            <label>{feature.label}: </label>
             <input
               type="number"
-              name={feature}
-              value={features[feature]}
+              name={feature.name}
+              value={features[feature.name]}
               onChange={handleChange}
               required
             />
